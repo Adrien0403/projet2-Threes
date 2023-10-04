@@ -27,12 +27,14 @@ nb2=sc.nextInt();
 int somme;
 int soustraction;
 int produit;
+int modulo;
 
 somme = nb1 + nb2;
 soustraction = nb1 - nb2;
 produit= nb1 * nb2;
+modulo= nb1 % nb2;
 
-System.out.println("La somme des nombres est : "+ somme + "Leur différence est de : "+soustraction+ "et le produit est : "+produit);
+System.out.println(" La somme des nombres est : "+ somme + " Leur différence est de : "+soustraction+ " et le produit est : "+produit+" le modulo est : "+modulo);
 }
     }
 
