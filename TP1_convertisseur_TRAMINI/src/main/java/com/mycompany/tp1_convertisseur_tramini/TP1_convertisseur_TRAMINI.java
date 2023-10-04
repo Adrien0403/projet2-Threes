@@ -1,6 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
+ * TP0 exercice 1
+ * TRAMINI
+ * septembre 2023
  */
 
 package com.mycompany.tp1_convertisseur_tramini;
