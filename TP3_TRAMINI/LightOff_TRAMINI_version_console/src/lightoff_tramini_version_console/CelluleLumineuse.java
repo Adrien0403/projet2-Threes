@@ -19,9 +19,15 @@ public class CelluleLumineuse {
     }
     
     public boolean estEteint() {
-    return !etat; // Renvoie vrai si l'état est faux (éteint), sinon faux (allumé)
+    if (etat==true){
+        etat = false;// Renvoie vrai si l'état est faux (éteint), sinon faux (allumé)
 }
-
+    else {
+        etat = true;
+    }
+        return etat;
+    }
+    
     /**
      * verifie si la cellule est allumer
      * @return true si elle est allumee et false si elle est eteinte

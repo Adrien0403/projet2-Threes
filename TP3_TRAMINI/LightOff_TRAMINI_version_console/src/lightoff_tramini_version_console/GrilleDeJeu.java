@@ -9,7 +9,7 @@ import java.util.Random;
  *
  * @author adrientramini
  */
-public class GrilleDeCellules {
+public class GrilleDeJeu {
     private CelluleLumineuse[][] matriceCellules; // La matrice de cellules lumineuses.
     private int nbLignes; // nombre de ligne de la matrice
     private int nbColonnes; // nombre de colone de la matrice
@@ -22,7 +22,7 @@ public class GrilleDeCellules {
      * @param p_nbLignes   Le nombre de lignes de la grille.
      * @param p_nbColonnes Le nombre de colonnes de la grille.
      */
-    public GrilleDeCellules(int p_nbLignes, int p_nbColonnes) {
+    public GrilleDeJeu(int p_nbLignes, int p_nbColonnes) {
         nbLignes = p_nbLignes;
         nbColonnes = p_nbColonnes;
         matriceCellules = new CelluleLumineuse[nbLignes][nbColonnes];
@@ -43,15 +43,25 @@ public class GrilleDeCellules {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
+        // Ajoute une ligne d'indices pour les colonnes
+        sb.append("  ");
+        for (int j = 0; j < nbColonnes; j++) {
+            sb.append(j).append("|");
+        }
+        sb.append("\n");
+
         for (int i = 0; i < nbLignes; i++) {
+            // Ajoute un indice pour la ligne
+            sb.append(i).append("|");
+
             for (int j = 0; j < nbColonnes; j++) {
-                if (matriceCellules[i][j].getEtat()) {
-                    sb.append("O "); // Cellule allumée
+                if (matriceCellules[i][j].getEtat()==true) {
+                    sb.append("O|");
                 } else {
-                    sb.append("X "); // Cellule éteinte
+                    sb.append("X|");
                 }
             }
-            sb.append("\n"); // Passer à la ligne suivante
+            sb.append("\n");
         }
 
         return sb.toString();
@@ -71,7 +81,7 @@ public class GrilleDeCellules {
     public void activerLigneColonneOuDiagonaleAleatoire() {
         Random random = new Random();
         int choix = random.nextInt(3); // Génère un nombre aléatoire entre 0 et 2 (0, 1 ou 2)
-
+        
         if (choix == 0) {
             // Activer une ligne aléatoire
             int ligneAleatoire = random.nextInt(nbLignes);
@@ -87,7 +97,7 @@ public class GrilleDeCellules {
         } else {
             // Activer une diagonale aléatoire (de gauche à droite, en descendant)
             int diagonaleAleatoire = random.nextInt(Math.min(nbLignes, nbColonnes));
-            for (int i = 0; i < diagonaleAleatoire; i++) {
+            for (int i = 0; i < diagonaleAleatoire-1; i++) {
                 matriceCellules[i][i].activerCellule();
             }
         }
@@ -103,34 +113,36 @@ public class GrilleDeCellules {
 
         // Pour chaque tour
         for (int tour = 0; tour < nbTours; tour++) {
-            // Éteindre toutes les cellules
-            for (int i = 0; i < nbLignes; i++) {
-                for (int j = 0; j < nbColonnes; j++) {
-                    matriceCellules[i][j].eteindreCellule();
-                }
-            }
 
-            int choix = random.nextInt(3); // Générer un nombre aléatoire entre 0 et 2 (0, 1 ou 2)
+            int choix = random.nextInt(4); // Générer un nombre aléatoire entre 0 et 3 (0, 1, 2, 3)
 
             if (choix == 0) {
                 // Activer une ligne aléatoire
                 int ligneAleatoire = random.nextInt(nbLignes);
                 for (int j = 0; j < nbColonnes; j++) {
-                    matriceCellules[ligneAleatoire][j].activerCellule();
+                    matriceCellules[ligneAleatoire][j].estEteint();
                 }
             } else if (choix == 1) {
                 // Activer une colonne aléatoire
                 int colonneAleatoire = random.nextInt(nbColonnes);
                 for (int i = 0; i < nbLignes; i++) {
-                    matriceCellules[i][colonneAleatoire].activerCellule();
+                    matriceCellules[i][colonneAleatoire].estEteint();
                 }
-            } else {
+            } else if(choix == 2) {
                 // Activer une diagonale aléatoire (de gauche à droite, en descendant)
-                int diagonaleAleatoire = random.nextInt(Math.min(nbLignes, nbColonnes));
-                for (int i = 0; i < diagonaleAleatoire; i++) {
-                    matriceCellules[i][i].activerCellule();
+                int minDim = Math.min(nbLignes, nbColonnes);
+        for (int i = 0; i < minDim; i++) {
+            matriceCellules[i][i].estEteint();
                 }
             }
+            else if(choix == 3) {
+                // Activer une diagonale aléatoire (de gauche à droite, en descendant)
+                int minDim = Math.min(nbLignes, nbColonnes);
+        for (int i = 0; i < minDim; i++) {
+            matriceCellules[i][nbColonnes - 1 - i].estEteint();
+        }
+            }
+           
         }
     }
     /**
@@ -141,7 +153,7 @@ public class GrilleDeCellules {
     public void activerLigneDeCellules(int idLigne) {
         if (idLigne >= 0 && idLigne < nbLignes) {
             for (int j = 0; j < nbColonnes; j++) {
-                matriceCellules[idLigne][j].activerCellule();
+                matriceCellules[idLigne][j].estEteint();
             }
         }
     }
@@ -153,7 +165,7 @@ public class GrilleDeCellules {
     public void activerColonneDeCellules(int idColonne) {
         if (idColonne >= 0 && idColonne < nbColonnes) {
             for (int i = 0; i < nbLignes; i++) {
-                matriceCellules[i][idColonne].activerCellule();
+                matriceCellules[i][idColonne].estEteint();
             }
         }
     }
@@ -163,7 +175,7 @@ public class GrilleDeCellules {
     public void activerDiagonaleDescendante() {
         int minDim = Math.min(nbLignes, nbColonnes);
         for (int i = 0; i < minDim; i++) {
-            matriceCellules[i][i].activerCellule();
+            matriceCellules[i][i].estEteint();
         }
     }
 
@@ -173,8 +185,23 @@ public class GrilleDeCellules {
     public void activerDiagonaleMontante() {
         int minDim = Math.min(nbLignes, nbColonnes);
         for (int i = 0; i < minDim; i++) {
-            matriceCellules[i][nbColonnes - 1 - i].activerCellule();
+            matriceCellules[i][nbColonnes - 1 - i].estEteint();
         }
+    }
+    /**
+     * Vérifie si toutes les cellules de la grille sont éteintes.
+     *
+     * @return true si toutes les cellules sont éteintes, sinon false.
+     */
+    public boolean cellulesToutesEteintes() {
+        for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                if (matriceCellules[i][j].getEtat()) {
+                    return false; // Au moins une cellule est allumée, donc retourne false
+                }
+            }
+        }
+        return true; // Toutes les cellules sont éteintes, retourne true
     }
 }
 
