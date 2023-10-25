@@ -9,45 +9,50 @@ package lightoff_tramini_version_console;
  * @author adrientramini
  */
 public class CelluleLumineuse {
-    private boolean allumee;
+    private boolean etat;
 
     /**
      * par defaut la cellule est eteinte
      */
     public CelluleLumineuse() {
-        this.allumee = false;
+        this.etat = false;
     }
+    
+    public boolean estEteint() {
+    return !etat; // Renvoie vrai si l'état est faux (éteint), sinon faux (allumé)
+}
 
     /**
      * verifie si la cellule est allumer
-     * @return " la cellule est allumee" si elle est allumee et " la cellule est eteinte" si elle est eteinte
+     * @return true si elle est allumee et false si elle est eteinte
      */
-    public String estAllumee() {
-        String etat_cellule;
-        if (allumee== true){
-           etat_cellule = (" la cellule est allumee");
-           return etat_cellule;
-        }
-        else {
-            etat_cellule = (" la cellule est eteinte");
-            return etat_cellule;
-        }
-          
-        
-    }
+    public boolean getEtat() {
+    return etat;
+}
 
     /**
      * allume la cellule 
      */
-    public void allumer() {
-        allumee = true;
+    public void activerCellule() {
+        etat = true;
     }
 
     /**
      * eteint la cellule 
      */
-    public void eteindre() {
-        allumee = false;
+    public void eteindreCellule() {
+        etat = false;
     }
-    
+    @Override
+public String toString() {
+String etat_cellule;
+if (etat == true){
+etat_cellule = ("O");
+return etat_cellule;
 }
+else {
+    etat_cellule = ("X");
+
+   return etat_cellule; 
+}
+}}
