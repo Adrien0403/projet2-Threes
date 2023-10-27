@@ -18,6 +18,10 @@ public class CelluleLumineuse {
         this.etat = false;
     }
     
+    /**
+     * permet d'echanger l'etat d'une cellule 
+     * @return true si la cellule est allumé et false si elle est eteinte
+     */
     public boolean estEteint() {
     if (etat==true){
         etat = false;// Renvoie vrai si l'état est faux (éteint), sinon faux (allumé)

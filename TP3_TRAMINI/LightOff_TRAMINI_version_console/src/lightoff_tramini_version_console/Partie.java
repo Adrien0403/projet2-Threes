@@ -24,6 +24,11 @@ public class Partie {
         grille = new GrilleDeJeu(nbLignes, nbColonnes); 
         nbCoups = 0;
      }
+
+    /**
+     * permet de proposer un niveau de difficulté au joueur
+     * le chiffre choisis sera le nombre de mélange de la grille 
+     */
     public void initialiserPartie() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("choisir un niveau de difficulté entre 1 et 10 :");
@@ -32,7 +37,11 @@ public class Partie {
         grille.eteindreToutesLesCellules(); // Éteindre toutes les cellules de la grille
         grille.melangerMatriceAleatoirement(n); // Mélanger la grille de manière aléatoire (10 mélanges)
     }
-     public void lancerPartie() {
+
+    /**
+     * lance une partie avec une grille mélanger qui se finit quand toutes les cellules de la grilles sont eteintes
+     */
+    public void lancerPartie() {
         if (grille == null) {
         grille.melangerMatriceAleatoirement(10);
         }
