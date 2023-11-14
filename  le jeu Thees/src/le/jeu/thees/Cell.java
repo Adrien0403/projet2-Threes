@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package le.jeu.thees;
-
+import java.util.Random;
 /**
  *
  * @author adrientramini
@@ -11,8 +11,10 @@ package le.jeu.thees;
 public class Cell {
     private int value;
 
-    public Cell(int value) {
-        this.value = value;
+    public Cell() {
+        Random random = new Random();
+        int randomValue = random.nextInt(3) + 0;
+        this.value = randomValue ;
     }
 
     public int getValue() {
@@ -21,5 +23,11 @@ public class Cell {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        // Affiche la valeur si elle est différente de zéro, sinon la cellule est vide
+        return (value != 0) ? String.valueOf(value) : " ";
     }
 }

@@ -10,8 +10,7 @@ package le.jeu.thees;
  */
 public class Main {
     public static void main(String[] args) {
-        LeJeuThees threesGame = new LeJeuThees();
-        threesGame.play();
+
     }
     
 }
