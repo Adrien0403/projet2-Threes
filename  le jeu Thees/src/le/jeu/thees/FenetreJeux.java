@@ -8,6 +8,8 @@ import javax.swing.BorderFactory;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -33,6 +35,7 @@ GameBoard grille;
             @Override
             public void actionPerformed(ActionEvent e) {
                 grille.move(1);
+                grille.spawnRandomNumber(1);
                 /*nbCoups++;
                     updateNbCoupsLabel();
                 */
@@ -46,6 +49,7 @@ GameBoard grille;
             @Override
             public void actionPerformed(ActionEvent e) {
                 grille.move(2);
+                grille.spawnRandomNumber(2);
                 /*nbCoups++;
                     updateNbCoupsLabel();
                 */
@@ -59,6 +63,7 @@ GameBoard grille;
             @Override
             public void actionPerformed(ActionEvent e) {
                 grille.move(3);
+                grille.spawnRandomNumber(3);
                 /*nbCoups++;
                     updateNbCoupsLabel();
                 */
@@ -72,6 +77,7 @@ GameBoard grille;
             @Override
             public void actionPerformed(ActionEvent e) {
                 grille.move(4);
+                grille.spawnRandomNumber(4);
                 /*nbCoups++;
                     updateNbCoupsLabel();
                 */
@@ -116,6 +122,16 @@ GameBoard grille;
         );
 
         UP.setText("UP");
+        UP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UPActionPerformed(evt);
+            }
+        });
+        UP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                up(evt);
+            }
+        });
 
         LEFT.setText("Left");
 
@@ -166,6 +182,14 @@ GameBoard grille;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void UPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UPActionPerformed
+
+    private void up(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_up
+ 
+    }//GEN-LAST:event_up
 
     /**
      * @param args the command line arguments

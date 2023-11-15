@@ -12,9 +12,7 @@ public class Cell {
     private int value;
 
     public Cell() {
-        Random random = new Random();
-        int randomValue = random.nextInt(3) + 0;
-        this.value = randomValue ;
+        this.value = 0;
     }
 
     public int getValue() {
