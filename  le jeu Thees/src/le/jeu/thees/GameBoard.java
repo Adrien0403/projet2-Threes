@@ -42,6 +42,16 @@ board[row1][col1].setValue(1);
 board[row2][col2].setValue(2);
     }
     
+    public boolean containsThreeOrMore() {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (board[i][j].getValue() >= 3) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
     public void spawnRandomNumber(int direction) {
         // Logique pour faire apparaître un 1 ou 2 aléatoirement sur la grille
@@ -234,4 +244,33 @@ do {
         }
     }
     
+    public boolean isGameOver() {
+    // Vérifier s'il y a une case vide
+    for (int i = 0; i < board.length; i++) {
+        for (int j = 0; j < board[i].length; j++) {
+            if (board[i][j].getValue() == 0) {
+                return false; // Il y a au moins une case vide, le jeu n'est pas terminé
+            }
+        }
+    }
+/*
+    // Vérifier s'il y a des mouvements possibles
+    for (int i = 0; i < board.length; i++) {
+        for (int j = 0; j < board[i].length; j++) {
+            int value = board[i][j].getValue();
+
+            // Vérifier les cases voisines pour des mouvements possibles
+            if ((i - 1 >= 0 && board[i - 1][j].getValue() == value)
+                || (i + 1 < board.length && board[i + 1][j].getValue() == value)
+                || (j - 1 >= 0 && board[i][j - 1].getValue() == value)
+                || (j + 1 < board[i].length && board[i][j + 1].getValue() == value)) {
+                return false; // Il y a au moins un mouvement possible, le jeu n'est pas terminé
+            }
+        }
+    }
+*/
+    // Aucune case vide et aucun mouvement possible, le jeu est terminé
+    return true;
+}
+  
 }

@@ -35,11 +35,14 @@ GameBoard grille;
             @Override
             public void actionPerformed(ActionEvent e) {
                 grille.move(1);
+                if (grille.containsThreeOrMore()==true){
                 grille.spawnRandomNumber(1);
+                }
                 /*nbCoups++;
                     updateNbCoupsLabel();
                 */
                 repaint();
+                checkVitory();
                 
             }
         });
@@ -49,12 +52,14 @@ GameBoard grille;
             @Override
             public void actionPerformed(ActionEvent e) {
                 grille.move(2);
+                if (grille.containsThreeOrMore()==true){
                 grille.spawnRandomNumber(2);
+                }
                 /*nbCoups++;
                     updateNbCoupsLabel();
                 */
                 repaint();
-                
+                checkVitory();
             }
         });
     
@@ -63,12 +68,14 @@ GameBoard grille;
             @Override
             public void actionPerformed(ActionEvent e) {
                 grille.move(3);
+                if (grille.containsThreeOrMore()==true){
                 grille.spawnRandomNumber(3);
+                }
                 /*nbCoups++;
                     updateNbCoupsLabel();
                 */
                 repaint();
-                
+                checkVitory();
             }
         });
     
@@ -77,17 +84,24 @@ GameBoard grille;
             @Override
             public void actionPerformed(ActionEvent e) {
                 grille.move(4);
+                if (grille.containsThreeOrMore()==true){
                 grille.spawnRandomNumber(4);
+                }
                 /*nbCoups++;
                     updateNbCoupsLabel();
                 */
                 repaint();
-                
+                checkVitory();
             }
         });
         
     }
 
+    public void checkVitory ()  {
+      if (grille.isGameOver()){
+          dispose();
+      }
+  }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -103,7 +117,7 @@ GameBoard grille;
         RIGTH = new javax.swing.JButton();
         DOWN = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         PanneauGrille.setBackground(new java.awt.Color(255, 204, 153));
         PanneauGrille.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -121,7 +135,9 @@ GameBoard grille;
             .addGap(0, 494, Short.MAX_VALUE)
         );
 
-        UP.setText("UP");
+        UP.setFont(new java.awt.Font("Wingdings 3", 0, 36)); // NOI18N
+        UP.setForeground(new java.awt.Color(255, 255, 255));
+        UP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/le/Up-Arrow-PNG-Transparent-Image.png"))); // NOI18N
         UP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UPActionPerformed(evt);
@@ -129,16 +145,31 @@ GameBoard grille;
         });
         UP.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                up(evt);
+                UPKeyPressed(evt);
             }
         });
 
-        LEFT.setText("Left");
+        LEFT.setFont(new java.awt.Font("Wingdings 3", 0, 36)); // NOI18N
+        LEFT.setForeground(new java.awt.Color(255, 255, 255));
+        LEFT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/le/left-Arrow-PNG-Transparent-Image copie 2.png"))); // NOI18N
+        LEFT.setIconTextGap(1);
+        LEFT.setMaximumSize(new java.awt.Dimension(55, 55));
+        LEFT.setMinimumSize(new java.awt.Dimension(55, 55));
+        LEFT.setPreferredSize(new java.awt.Dimension(55, 55));
+        LEFT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LEFTActionPerformed(evt);
+            }
+        });
 
-        RIGTH.setText("Right");
+        RIGTH.setFont(new java.awt.Font("Wingdings 3", 0, 36)); // NOI18N
+        RIGTH.setForeground(new java.awt.Color(255, 255, 255));
+        RIGTH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/le/right-Arrow-PNG-Transparent-Image copie 3.png"))); // NOI18N
         RIGTH.setSize(new java.awt.Dimension(60, 60));
 
-        DOWN.setText("Down");
+        DOWN.setFont(new java.awt.Font("Wingdings 3", 0, 36)); // NOI18N
+        DOWN.setForeground(new java.awt.Color(255, 255, 255));
+        DOWN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/le/down-Arrow-PNG-Transparent-Image copie.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,37 +178,37 @@ GameBoard grille;
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(UP, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(20, 20, 20)
                         .addComponent(LEFT, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
+                        .addGap(56, 56, 56)
                         .addComponent(RIGTH, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
+                        .addGap(74, 74, 74)
+                        .addComponent(UP, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
                         .addComponent(DOWN, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addComponent(PanneauGrille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addGap(62, 62, 62))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(PanneauGrille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
+                        .addGap(136, 136, 136)
                         .addComponent(UP, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LEFT, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(RIGTH, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(DOWN, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(268, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(RIGTH, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LEFT, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DOWN, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(PanneauGrille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(240, Short.MAX_VALUE))
         );
 
         pack();
@@ -187,9 +218,15 @@ GameBoard grille;
         // TODO add your handling code here:
     }//GEN-LAST:event_UPActionPerformed
 
-    private void up(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_up
- 
-    }//GEN-LAST:event_up
+    private void LEFTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LEFTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LEFTActionPerformed
+
+    private void UPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_UPKeyPressed
+ if (evt.getKeyChar() == 'Z') {
+            UP.doClick();
+ }
+    }//GEN-LAST:event_UPKeyPressed
 
     /**
      * @param args the command line arguments
@@ -221,7 +258,8 @@ GameBoard grille;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FenetreJeux().setVisible(true);
+                new FentreAceuil().setVisible(true);
+                
             }
         });
     }
