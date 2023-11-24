@@ -4,21 +4,35 @@
  */
 package le.jeu.thees;
 
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 
 /**
  *
  * @author adrientramini
  */
 public class FennetrePrincipale extends javax.swing.JFrame {
-
+//GameBoard grille;
     /**
      * Creates new form FennetrePrincipale
      */
     public FennetrePrincipale(String pseudo) {
         initComponents();
-         jLabel1.setText("Boenvenue sur le jeu Three " +pseudo+ " ");
+        
+       /* this.grille = new GameBoard();
+        PanneauGrille.setLayout(new GridLayout(4, 4));
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                Cell_graphique valeurCellule = new Cell_graphique(grille.board[i][j]);
+                valeurCellule.setBorder(BorderFactory.createLineBorder(Color.BLACK));//ajoute des lignes entre les cellules pour le délimiter
+                PanneauGrille.add(valeurCellule); // Ajout au JPanel PanneauGrille
+            }
+        }
+        */
+         jLabel1.setText("Bienvenue sur le jeu Three " +pseudo+ " ☺︎");
          
          playbutton.addActionListener(new ActionListener() {
             @Override
@@ -49,11 +63,12 @@ public class FennetrePrincipale extends javax.swing.JFrame {
         menu = new javax.swing.JButton();
         playbutton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        PanneauGrille = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(825, 827));
 
-        menu.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        menu.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         menu.setText("Menu");
         menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,35 +79,52 @@ public class FennetrePrincipale extends javax.swing.JFrame {
         playbutton.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         playbutton.setText("Jouer");
 
-        jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
         jLabel1.setText("jLabel1");
+
+        PanneauGrille.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 153, 255), 3, true));
+        PanneauGrille.setSize(new java.awt.Dimension(400, 475));
+
+        javax.swing.GroupLayout PanneauGrilleLayout = new javax.swing.GroupLayout(PanneauGrille);
+        PanneauGrille.setLayout(PanneauGrilleLayout);
+        PanneauGrilleLayout.setHorizontalGroup(
+            PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        PanneauGrilleLayout.setVerticalGroup(
+            PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 475, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(PanneauGrille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(menu)
+                        .addGap(124, 124, 124)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)))
+                .addContainerGap(200, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(playbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(350, 350, 350))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(menu))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(325, 325, 325)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(5, 5, 5)
-                .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(47, 47, 47)
+                .addComponent(PanneauGrille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                 .addComponent(playbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65))
         );
@@ -111,6 +143,7 @@ public class FennetrePrincipale extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanneauGrille;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton menu;
     private javax.swing.JButton playbutton;

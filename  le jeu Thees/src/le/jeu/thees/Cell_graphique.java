@@ -27,7 +27,8 @@ Font font = new Font("Arial", Font.PLAIN, 34);
 
         if (celluleAssociee.getValue() == 0) {
             Color beigeLight = new Color(255, 251, 238);
-            g.setColor(beigeLight);
+            Color white = new Color(255,255,255);
+            g.setColor(white);
     g.fillRect(0, 0, getWidth(), getHeight());
 
            
