@@ -6,6 +6,7 @@ package le.jeu.thees;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
@@ -45,7 +46,12 @@ g.fillRect(0, 0, getWidth(), getHeight());
     g.setFont(font);
 
     // Dessinez le chiffre au centre
-    g.drawString(String.valueOf(value), getWidth() / 2, getHeight() / 2);
+    String valueString = String.valueOf(value);
+    FontMetrics fm = g.getFontMetrics();
+    int x = (getWidth() - fm.stringWidth(valueString)) / 2;
+    int y = (getHeight() + fm.getAscent()) / 2;
+
+    g.drawString(valueString, x, y);
 }
         else if (celluleAssociee.getValue() == 2) {
     int value = celluleAssociee.getValue();
@@ -64,7 +70,12 @@ g.fillRect(0, 0, getWidth(), getHeight());
     g.setFont(font);
 
     // Dessinez le chiffre au centre
-    g.drawString(String.valueOf(value), getWidth() / 2, getHeight() / 2);
+    String valueString = String.valueOf(value);
+    FontMetrics fm = g.getFontMetrics();
+    int x = (getWidth() - fm.stringWidth(valueString)) / 2;
+    int y = (getHeight() + fm.getAscent()) / 2;
+
+    g.drawString(valueString, x, y);
 }
         else if (celluleAssociee.getValue() ==3){
             int value = celluleAssociee.getValue();
@@ -79,24 +90,141 @@ g.setColor(Color.BLACK);
     g.setFont(font);
 
     // Dessinez le chiffre au centre
-    g.drawString(String.valueOf(value), getWidth() / 2, getHeight() / 2);
+   String valueString = String.valueOf(value);
+    FontMetrics fm = g.getFontMetrics();
+    int x = (getWidth() - fm.stringWidth(valueString)) / 2;
+    int y = (getHeight() + fm.getAscent()) / 2;
+
+    g.drawString(valueString, x, y);
         }
-        else if (celluleAssociee.getValue() >= 6){
+        else if (celluleAssociee.getValue() ==6){
             int value = celluleAssociee.getValue();
-            
-                g.setColor(Color.WHITE);
+            g.setColor(Color.WHITE);
     
     // Remplir le rectangle avec la couleur définie
     g.fillRect(0, 0, getWidth(), getHeight());
     
-           Color redLight = new Color(255, 90, 90);  // RVB : rouge clair
-g.setColor(redLight);
-    
+           
+g.setColor(Color.BLACK);
 
     g.setFont(font);
 
     // Dessinez le chiffre au centre
-    g.drawString(String.valueOf(value), getWidth() / 2, getHeight() / 2);
+   String valueString = String.valueOf(value);
+    FontMetrics fm = g.getFontMetrics();
+    int x = (getWidth() - fm.stringWidth(valueString)) / 2;
+    int y = (getHeight() + fm.getAscent()) / 2;
+
+    g.drawString(valueString, x, y);
+        }
+        else if (celluleAssociee.getValue() ==12){
+            int value = celluleAssociee.getValue();
+            g.setColor(Color.WHITE);
+    
+    // Remplir le rectangle avec la couleur définie
+    g.fillRect(0, 0, getWidth(), getHeight());
+    
+           
+g.setColor(Color.RED);
+
+    g.setFont(font);
+
+    // Dessinez le chiffre au centre
+   String valueString = String.valueOf(value);
+    FontMetrics fm = g.getFontMetrics();
+    int x = (getWidth() - fm.stringWidth(valueString)) / 2;
+    int y = (getHeight() + fm.getAscent()) / 2;
+
+    g.drawString(valueString, x, y);
+        }
+else if (celluleAssociee.getValue() == 24) {
+    int value = celluleAssociee.getValue();
+    
+    // Rendre la couleur orange plus claire
+    Color orangeClair = Color.ORANGE.brighter();
+    
+    g.setColor(orangeClair);
+
+    // Remplir le rectangle avec la couleur définie
+    g.fillRect(0, 0, getWidth(), getHeight());
+    
+    g.setColor(Color.BLACK);
+    g.setFont(font);
+
+    // Dessinez le chiffre au centre
+    String valueString = String.valueOf(value);
+    FontMetrics fm = g.getFontMetrics();
+    int x = (getWidth() - fm.stringWidth(valueString)) / 2;
+    int y = (getHeight() + fm.getAscent()) / 2;
+
+    g.drawString(valueString, x, y);
+}
+        else if (celluleAssociee.getValue() == 48) {
+    int value = celluleAssociee.getValue();
+    
+    // Rendre la couleur orange plus claire
+
+    
+    g.setColor(Color.ORANGE);
+
+    // Remplir le rectangle avec la couleur définie
+    g.fillRect(0, 0, getWidth(), getHeight());
+    
+    g.setColor(Color.BLACK);
+    g.setFont(font);
+
+    // Dessinez le chiffre au centre
+    String valueString = String.valueOf(value);
+    FontMetrics fm = g.getFontMetrics();
+    int x = (getWidth() - fm.stringWidth(valueString)) / 2;
+    int y = (getHeight() + fm.getAscent()) / 2;
+
+    g.drawString(valueString, x, y);
+}
+        else if (celluleAssociee.getValue() == 96) {
+    int value = celluleAssociee.getValue();
+    
+    // Rendre la couleur orange plus claire
+
+    
+    g.setColor(Color.red);
+
+    // Remplir le rectangle avec la couleur définie
+    g.fillRect(0, 0, getWidth(), getHeight());
+    
+    g.setColor(Color.BLACK);
+    g.setFont(font);
+
+    // Dessinez le chiffre au centre
+    String valueString = String.valueOf(value);
+    FontMetrics fm = g.getFontMetrics();
+    int x = (getWidth() - fm.stringWidth(valueString)) / 2;
+    int y = (getHeight() + fm.getAscent()) / 2;
+
+    g.drawString(valueString, x, y);
+        }
+        
+       else if (celluleAssociee.getValue() >= 96) {
+    int value = celluleAssociee.getValue();
+    
+    // Rendre la couleur orange plus claire
+
+    
+    g.setColor(Color.red);
+
+    // Remplir le rectangle avec la couleur définie
+    g.fillRect(0, 0, getWidth(), getHeight());
+    
+    g.setColor(Color.ORANGE);
+    g.setFont(font);
+
+    // Dessinez le chiffre au centre
+    String valueString = String.valueOf(value);
+    FontMetrics fm = g.getFontMetrics();
+    int x = (getWidth() - fm.stringWidth(valueString)) / 2;
+    int y = (getHeight() + fm.getAscent()) / 2;
+
+    g.drawString(valueString, x, y);
         }
     }
 }
