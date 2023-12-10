@@ -6,6 +6,8 @@ package le.jeu.thees;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.ButtonGroup;
 
 /**
@@ -19,15 +21,20 @@ private int musique=1;
      */
     public FentreAceuil() {
         initComponents();
+        this.setFocusable(true);
+this.requestFocusInWindow();
         
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(jRadioButton1);
         buttonGroup.add(jRadioButton2);
       jRadioButton1.setSelected(true);
       
+     
+      
          jRadioButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SounEffect.playMusic("bouton.wav");
                musique = 1;
             }
         });
@@ -35,12 +42,23 @@ private int musique=1;
         jRadioButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SounEffect.playMusic("bouton.wav");
               musique = 2;
             }
         });
+             this.addKeyListener(new KeyAdapter() {
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            // Action à effectuer lors de l'appui sur Entrée
+            validerButton.doClick();  // Simuler un clic sur le bouton
+        }
+    }
+});   
         validerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SounEffect.playMusic("VALIDATION.wav");
                 String pseudo = jTextField1.getText();
             dispose();
             if (musique==1){
@@ -49,7 +67,7 @@ private int musique=1;
             else if (musique==2){
             MusicPlayer.playMusic("JEUXRETRO.wav");
             }
-            new FennetrePrincipale(pseudo).setVisible(true);
+            new FennetrePrincipale(pseudo,musique).setVisible(true);
             }
         });
     }

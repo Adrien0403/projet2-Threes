@@ -1,17 +1,18 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package le.jeu.thees;
-
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import javax.sound.sampled.*;
 
 /**
- * Classe qui gère la lecture de la musique.
- * Created by adrientramini
+ *
+ * @author adrientramini
  */
-public class MusicPlayer {
-    private static Clip clip;
-   
-
+public class SounEffect {
     public static void playMusic(String filePath) {
         try {
             InputStream audioStream = MusicPlayer.class.getResourceAsStream(filePath);
@@ -23,7 +24,7 @@ public class MusicPlayer {
 
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioStream);
 
-            clip = AudioSystem.getClip();
+            Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
 
             // Ajouter un LineListener pour détecter la fin de la lecture
@@ -32,8 +33,7 @@ public class MusicPlayer {
                 public void update(LineEvent event) {
                     if (event.getType() == LineEvent.Type.STOP) {
                         // Réinitialiser le clip et le relancer
-                        clip.setMicrosecondPosition(0);
-                        clip.start();
+                       
                     }
                 }
             });
@@ -48,11 +48,4 @@ public class MusicPlayer {
             e.printStackTrace();
         }
     }
-    public static void pauseMusic() {
-    if (clip != null && clip.isRunning()) {
-        clip.stop();
-        clip.setMicrosecondPosition(0); // Revenir au début
-        clip.close(); // Fermer le clip pour libérer les ressources
-    }
-}
 }

@@ -21,7 +21,7 @@ GameBoard grillefini;
     /**
      * Creates new form FenetreFin
      */
-    public FenetreFin(String score,String temps,String pseudo,GameBoard grillefini) {
+    public FenetreFin(String score,String temps,String pseudo,GameBoard grillefini,int TMusique) {
         initComponents();
         jPanel1.setLayout(new GridLayout(4, 4));
 
@@ -42,9 +42,16 @@ GameBoard grillefini;
         jButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SounEffect.playMusic("VALIDATION.wav");
+                if (TMusique==1){
+                     MusicPlayer.playMusic("jeuxgoincraazyy.wav");
+                }
+                else if (TMusique==2){
+                    MusicPlayer.playMusic("JEUXRETRO.wav");
+                }
            
             dispose();
-            new FennetrePrincipale(pseudo).setVisible(true);
+            new FennetrePrincipale(pseudo,TMusique).setVisible(true);
             }
         });
     }
@@ -107,11 +114,6 @@ GameBoard grillefini;
 
         jButton1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         jButton1.setText("retour a la page principale");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,7 +142,7 @@ GameBoard grillefini;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(82, 82, 82)
@@ -161,10 +163,6 @@ GameBoard grillefini;
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

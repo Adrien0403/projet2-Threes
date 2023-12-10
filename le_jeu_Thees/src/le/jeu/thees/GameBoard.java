@@ -63,14 +63,14 @@ public boolean containsThreeOrMore() {
     return false;
 }
 
-    public void spawnRandomNumber(int direction) {
-        // Logique pour faire apparaître un 1 ou 2 aléatoirement sur la grille
-        Random random = new Random();
+    public void spawnRandomNumber(int direction,int valeur) {
+    Random random = new Random();
+    
+    int row;
+    int col;
 
-        // Déterminer la ligne et la colonne pour le spawn en fonction de la direction
-        int row;
-        int col;
-do {
+    // Sélectionner la ligne et la colonne en fonction de la direction
+    do {
         switch (direction) {
             case 1:
                 row = 3;  // Dernière ligne
@@ -89,34 +89,18 @@ do {
                 col = 0;  // Première colonne
                 break;
             default:
-                // Gérer les autres cas si nécessaire
                 return;
         }
-
-       // Vérifier si la cellule est vide avant de spawn le nombre
     } while (board[row][col].getValue() != 0);
 
-    // Générer un nombre entre 1 et 100 pour déterminer la probabilité
-    int probability = random.nextInt(100) + 1;
+    //int randomNumber = generateRandomNumber();
+    assignValueToCell(row, col, valeur);
+}
 
-    // Choisir la valeur en fonction de la probabilité
-    int randomNumber;
-    if (probability <= 75) {
-        // 75% de chance pour 1 ou 2
-        randomNumber = random.nextInt(2) + 1;
-    } else if (probability <= 90) {
-        // 15% de chance pour 3 ou 6
-        randomNumber = random.nextInt(2) * 3 + 3;
-    } else if (probability <= 97) {
-        // 7% de chance pour 12
-        randomNumber = 12;
-    } else {
-        // 3% de chance pour 24
-        randomNumber = 24;
-    }
 
-    // Assigner la valeur à la cellule
-    board[row][col].setValue(randomNumber);
+
+private void assignValueToCell(int row, int col, int value) {
+    board[row][col].setValue(value);
 }
 
 
@@ -257,16 +241,19 @@ do {
     private void testNumber(int row1, int col1, int row2, int col2) {
         if (board[row1][col1].getValue()==2){
             if (board[row2][col2].getValue()==1){
+                SounEffect.playMusic("bouton.wav");
                 board[row1][col1].setValue(3);
             }
         }
         if (board[row1][col1].getValue()==1){
             if (board[row2][col2].getValue()==2){
+                SounEffect.playMusic("bouton.wav");
                 board[row1][col1].setValue(3);
             }
         }
         if (board[row1][col1].getValue()>=3){
         if (board[row1][col1].getValue() == board[row2][col2].getValue()) {
+            SounEffect.playMusic("FUSION2.wav");
             board[row1][col1].setValue(board[row1][col1].getValue() * 2);
             board[row2][col2].setValue(0);
         }

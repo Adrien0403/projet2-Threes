@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import java.io.File;
 import static le.jeu.thees.MusicPlayer.playMusic;
@@ -18,13 +20,16 @@ import static le.jeu.thees.MusicPlayer.playMusic;
  * @author adrientramini
  */
 public class FennetrePrincipale extends javax.swing.JFrame {
-//GameBoard grille;
+
     GameBoard grille;
+    boolean jButton1Presse = false;
     /**
      * Creates new form FennetrePrincipale
      */
-    public FennetrePrincipale(String pseudo) {
+    public FennetrePrincipale(String pseudo,int Musique) {
         initComponents();
+        this.setFocusable(true);
+this.requestFocusInWindow();
        this.grille = new GameBoard();
         PanneauGrille.setLayout(new GridLayout(4, 4));
 
@@ -36,34 +41,64 @@ public class FennetrePrincipale extends javax.swing.JFrame {
                 PanneauGrille.add(valeurCellule); // Ajout au JPanel PanneauGrille
             }
         }
-       /* this.grille = new GameBoard();
-        PanneauGrille.setLayout(new GridLayout(4, 4));
+        nouvelleGrilleButton.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        SounEffect.playMusic("bouton.wav");
+        
+        // Chargez une nouvelle grille
+        grille = new GameBoard();
+
+        // Effacez le contenu actuel du PanneauGrille
+        PanneauGrille.removeAll();
+
+        // Ajoutez les nouvelles cellules à la grille
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 Cell_graphique valeurCellule = new Cell_graphique(grille.board[i][j]);
-                valeurCellule.setBorder(BorderFactory.createLineBorder(Color.BLACK));//ajoute des lignes entre les cellules pour le délimiter
-                PanneauGrille.add(valeurCellule); // Ajout au JPanel PanneauGrille
+                valeurCellule.setPreferredSize(new Dimension(125, 150));
+                valeurCellule.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                PanneauGrille.add(valeurCellule);
             }
         }
-        */
-       
-            
-            // Faites quelque chose avec l'étatToggleButton
-        FenetreJeux fenetreJeux = new FenetreJeux(grille,pseudo);
-        FenetreMenu fenetreMenu = new FenetreMenu(fenetreJeux);
+
+        // Mettez à jour l'affichage
+        PanneauGrille.revalidate();
+        PanneauGrille.repaint();
+        jButton1Presse=true;
+    }
+});
+           
+        FenetreJeux fenetreJeux = new FenetreJeux(grille,pseudo,Musique);
+        FenetreMenu fenetreMenu = new FenetreMenu(fenetreJeux,Musique);
         
         
-         jLabel1.setText("Bienvenue sur le jeu Three " +pseudo+ " ☺︎");
-         
+         jLabel1.setText("Bienvenue sur le jeu Three " +pseudo+ " 🙂︎");
+ this.addKeyListener(new KeyAdapter() {
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            // Action à effectuer lors de l'appui sur Entrée
+            playbutton.doClick();  // Simuler un clic sur le bouton
+        }
+    }
+});        
          playbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-fenetreMenu.dispose();
-dispose();
-        fenetreJeux.setVisible(true);
-
-       
-            
+                SounEffect.playMusic("VALIDATION.wav");
+if (jButton1Presse==true){
+    FenetreJeux fenetreJeux = new FenetreJeux(grille,pseudo,Musique);
+    fenetreJeux.setVisible(true);
+        fenetreMenu.setVisible(false);
+        setVisible(false);
+}
+else {
+     fenetreJeux.setVisible(true);
+        fenetreMenu.setVisible(false);
+        setVisible(false);
+}   
             }
         });
          
@@ -71,7 +106,7 @@ dispose();
          menu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                 
+                 SounEffect.playMusic("bouton.wav");
            fenetreMenu.setVisible(true);
             }
         });
@@ -92,6 +127,8 @@ dispose();
         playbutton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         PanneauGrille = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        nouvelleGrilleButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,7 +140,7 @@ dispose();
             }
         });
 
-        playbutton.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        playbutton.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 20)); // NOI18N
         playbutton.setText("Jouer");
 
         jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
@@ -120,6 +157,17 @@ dispose();
             .addGap(0, 600, Short.MAX_VALUE)
         );
 
+        jLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        jLabel2.setText("Voici votre grille :");
+
+        nouvelleGrilleButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        nouvelleGrilleButton.setText("recharger la grille");
+        nouvelleGrilleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nouvelleGrilleButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,13 +180,17 @@ dispose();
                         .addGap(134, 134, 134)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(219, 219, 219)
+                        .addGap(69, 69, 69)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(PanneauGrille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(62, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(playbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(257, 257, 257))
+                .addComponent(nouvelleGrilleButton)
+                .addGap(41, 41, 41)
+                .addComponent(playbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(197, 197, 197))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,10 +199,17 @@ dispose();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(PanneauGrille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(playbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(284, 284, 284)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(playbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addComponent(PanneauGrille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(nouvelleGrilleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(59, 59, 59))
         );
 
@@ -162,6 +221,10 @@ dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_menuActionPerformed
 
+    private void nouvelleGrilleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nouvelleGrilleButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nouvelleGrilleButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -170,7 +233,9 @@ dispose();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanneauGrille;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton menu;
+    private javax.swing.JButton nouvelleGrilleButton;
     private javax.swing.JButton playbutton;
     // End of variables declaration//GEN-END:variables
 }
