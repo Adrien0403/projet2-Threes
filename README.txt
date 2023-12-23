@@ -6,4 +6,4 @@ car le fait qu'il y ait des espaces dans le nom posait problème lorsque je
 voulais faire un chemin vers des dossiers audio .wav (pour la musique et les effets sonores du jeu),
 j'ai quand même laissé les deux projets pour accéder aux commit et a l'avancement du jeu depuis le début.
 
-groupe : TRAMINI Adrien et (Garcia Arthur(il a fait les règles du jeu))
+groupe : TRAMINI Adrien et Garcia Arthur
