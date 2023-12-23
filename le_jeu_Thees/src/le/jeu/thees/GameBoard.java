@@ -6,13 +6,24 @@ package le.jeu.thees;
 
 import java.util.Random;
 /**
- *
- * @author adrientramini
+ * La classe GameBoard représente le plateau de jeu pour le jeu "Three".
+ * Elle comprend des méthodes pour initialiser le plateau, gérer les mouvements,
+ * vérifier les conditions de fin de partie, et plus encore.
  */
 public class GameBoard {
+    /**
+     * Représente les cellules sur le plateau de jeu.
+     */
     public Cell[][] board;
+     /**
+     * Représente le score actuel du jeu.
+     */
     private int score;
 
+    /**
+     * Crée une nouvelle instance de la classe GameBoard et initialise le plateau de jeu.
+     * Il configure les valeurs initiales et les configurations pour le jeu.
+     */
     public GameBoard() {
         int nbLignes = 4;
         int nbColonnes = 4;
@@ -37,6 +48,13 @@ int row1, col1, row2, col2;
         assignerValeursAleatoires(4, 1, 2);
     }
 
+    /**
+     * Attribue des valeurs aléatoires à un nombre spécifié de cellules sur le plateau.
+     *
+     * @param nombreCellules Le nombre de cellules auxquelles attribuer des valeurs aléatoires.
+     * @param valeur1         La première valeur aléatoire possible.
+     * @param valeur2         La deuxième valeur aléatoire possible.
+     */
     private void assignerValeursAleatoires(int nombreCellules, int valeur1, int valeur2) {
         Random random = new Random();
         int count = 0;
@@ -52,6 +70,12 @@ int row1, col1, row2, col2;
                 count++;
             }
         }}
+    
+    /**
+     * Vérifie si le plateau de jeu contient une cellule avec une valeur de trois ou plus.
+     *
+     * @return True s'il y a une cellule avec une valeur de trois ou plus, false sinon.
+     */
 public boolean containsThreeOrMore() {
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
@@ -63,6 +87,12 @@ public boolean containsThreeOrMore() {
     return false;
 }
 
+    /**
+     * Fait apparaître un nombre aléatoire dans une direction spécifique avec une valeur spécifiée.
+     *
+     * @param direction La direction dans laquelle le nombre doit apparaître.
+     * @param valeur    La valeur du nombre à faire apparaître.
+     */
     public void spawnRandomNumber(int direction,int valeur) {
     Random random = new Random();
     
@@ -105,6 +135,11 @@ private void assignValueToCell(int row, int col, int value) {
 
 
 
+    /**
+     * Déplace les cellules sur le plateau en fonction de la direction spécifiée.
+     *
+     * @param direction La direction dans laquelle les cellules doivent être déplacées.
+     */
             public void move(int direction) {
         switch (direction) {
             case 1:
@@ -202,53 +237,36 @@ private void assignValueToCell(int row, int col, int value) {
             board[fromRow][fromCol].setValue(0);
         }
     }
-/*
-    private int findEmptyCellAbove(int row, int col) {
-        while (row > 0 && board[row - 1][col].getValue() == 0) {
-            row--;
+
+    /**
+     * cette méthode compte le nombre de cellules qui a comme valeur 1 ou 2 
+     * @return le nombre de cellule avec comme valeur 1 ou 2 
+     */
+    public int countOneTwo() {
+        int count = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (board[i][j].getValue() == 1 || board[i][j].getValue() == 2) {
+                    count++;
+                }
+            }
         }
-        return row;
+        return count;
     }
 
-    private int findEmptyCellBelow(int row, int col) {
-        while (row < 3 && board[row + 1][col].getValue() == 0) {
-            row++;
-        }
-        return row;
-    }
-
-    private int findEmptyCellLeft(int row, int col) {
-        while (col > 0 && board[row][col - 1].getValue() == 0) {
-            col--;
-        }
-        return col;
-    }
-
-    private int findEmptyCellRight(int row, int col) {
-        while (col < 3 && board[row][col + 1].getValue() == 0) {
-            col++;
-        }
-        return col;
-    }
-/*
-    private void moveCell(int fromRow, int fromCol, int toRow, int toCol) {
-        if (fromRow != toRow || fromCol != toCol) {
-            board[toRow][toCol].setValue(board[fromRow][fromCol].getValue());
-            board[fromRow][fromCol].setValue(0);
-        }
-    }
-*/
     private void testNumber(int row1, int col1, int row2, int col2) {
         if (board[row1][col1].getValue()==2){
             if (board[row2][col2].getValue()==1){
                 SounEffect.playMusic("bouton.wav");
                 board[row1][col1].setValue(3);
+                board[row2][col2].setValue(0);
             }
         }
         if (board[row1][col1].getValue()==1){
             if (board[row2][col2].getValue()==2){
                 SounEffect.playMusic("bouton.wav");
                 board[row1][col1].setValue(3);
+                board[row2][col2].setValue(0);
             }
         }
         if (board[row1][col1].getValue()>=3){
@@ -260,6 +278,11 @@ private void assignValueToCell(int row, int col, int value) {
         }
     }
     
+    /**
+     * Vérifie si le jeu est terminé en examinant l'état actuel du plateau.
+     *
+     * @return True si le jeu est terminé, false sinon.
+     */
     public boolean isGameOver() {
     // Vérifier s'il y a une case vide
     for (int i = 0; i < board.length; i++) {

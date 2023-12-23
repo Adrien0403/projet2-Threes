@@ -18,8 +18,15 @@ import javax.swing.JLabel;
  */
 public class FenetreFin extends javax.swing.JFrame {
 GameBoard grillefini;
+
     /**
-     * Creates new form FenetreFin
+     * Constructeur de la classe FenetreFin.
+     *
+     * @param score       Le score du joueur.
+     * @param temps       Le temps écoulé pendant le jeu.
+     * @param pseudo      Le pseudonyme du joueur.
+     * @param grillefini  La grille du jeu à la fin de la partie.
+     * @param TMusique    Le numéro de la musique à jouer.
      */
     public FenetreFin(String score,String temps,String pseudo,GameBoard grillefini,int TMusique) {
         initComponents();
@@ -55,6 +62,14 @@ GameBoard grillefini;
             }
         });
     }
+    
+    /**
+     * Méthode permettant de rendre certains composants de la fenêtre invisibles.
+     *
+     * @param n La valeur de n détermine quels composants rendre invisibles.
+     *          Si n est égal à 1, alors jLabel3 et jLabel5 seront rendus invisibles.
+     *          Sinon, ils seront rendus visibles.
+     */
     public void rendreTexteInvisible(int n) {
      if (n==1){
          jLabel3.setVisible(false);

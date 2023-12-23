@@ -9,9 +9,18 @@ import javax.sound.sampled.*;
  * Created by adrientramini
  */
 public class MusicPlayer {
+    
+    /**
+     * Clip audio utilisé pour la lecture du fichier audio.
+     */
     private static Clip clip;
    
 
+    /**
+     * Joue le fichier audio spécifié.
+     *
+     * @param filePath Le chemin vers le fichier audio à jouer.
+     */
     public static void playMusic(String filePath) {
         try {
             InputStream audioStream = MusicPlayer.class.getResourceAsStream(filePath);
@@ -48,6 +57,10 @@ public class MusicPlayer {
             e.printStackTrace();
         }
     }
+    
+     /**
+     * coupe la lecture du fichier audio en cours.
+     */
     public static void pauseMusic() {
     if (clip != null && clip.isRunning()) {
         clip.stop();

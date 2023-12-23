@@ -12,12 +12,21 @@ import javax.swing.JPanel;
 
 public class Cell_graphique extends JPanel {
     private Cell celluleAssociee;
-
+    
+    /**
+     * Constructeur de la classe Cell_graphique.
+     *
+     * @param celluleAssociee La cellule logique associée à la cellule graphique.
+     */
     public Cell_graphique(Cell celluleAssociee) {
         this.celluleAssociee = celluleAssociee;
     }
 
-    // Méthode gérant le dessin de la cellule
+    /**
+     * Méthode gérant le dessin de la cellule graphique.
+     *
+     * @param g L'objet Graphics utilisé pour dessiner.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

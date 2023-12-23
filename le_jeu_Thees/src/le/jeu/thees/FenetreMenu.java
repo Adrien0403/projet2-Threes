@@ -15,9 +15,11 @@ import java.awt.event.ItemListener;
 public class FenetreMenu extends javax.swing.JFrame {
 
     /**
-     * Creates new form FenetreMenu
+     * Constructeur de la classe FenetreMenu.
+     *
+     * @param fenetreJeux   La fenêtre principale du jeu.
+     * @param ThemeMusique  Le numéro du thème musical.
      */
-   
  private FenetreJeux fenetreJeux;
     public FenetreMenu(FenetreJeux fenetreJeux,int ThemeMusique) {
         initComponents();
@@ -65,10 +67,14 @@ public class FenetreMenu extends javax.swing.JFrame {
             }
           });
     }
-
-public boolean isToggleButtonSelected() {
+    /**
+     * Vérifie si le toggleButtonChrono est sélectionné.
+     *
+     * @return true si le toggleButtonChrono est sélectionné, sinon false.
+     */
+     public boolean isToggleButtonSelected() {
         return toggleButtonChrono.isSelected();
-    }
+     }
    
     
 

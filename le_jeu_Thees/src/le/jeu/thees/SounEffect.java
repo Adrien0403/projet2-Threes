@@ -13,6 +13,12 @@ import javax.sound.sampled.*;
  * @author adrientramini
  */
 public class SounEffect {
+    
+    /**
+     * Joue l'effet sonore spécifié à partir d'un fichier audio.
+     *
+     * @param filePath Le chemin vers le fichier audio de l'effet sonore à jouer.
+     */
     public static void playMusic(String filePath) {
         try {
             InputStream audioStream = MusicPlayer.class.getResourceAsStream(filePath);

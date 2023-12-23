@@ -20,11 +20,14 @@ import static le.jeu.thees.MusicPlayer.playMusic;
  * @author adrientramini
  */
 public class FennetrePrincipale extends javax.swing.JFrame {
-
+ private int nouvelleGrilleButtonPressCount = 0;
     GameBoard grille;
     boolean jButton1Presse = false;
     /**
-     * Creates new form FennetrePrincipale
+     * Constructeur de la classe FennetrePrincipale.
+     *
+     * @param pseudo   Le pseudo du joueur.
+     * @param Musique  Le numéro du thème musical.
      */
     public FennetrePrincipale(String pseudo,int Musique) {
         initComponents();
@@ -41,40 +44,52 @@ this.requestFocusInWindow();
                 PanneauGrille.add(valeurCellule); // Ajout au JPanel PanneauGrille
             }
         }
+         nouvelleGrilleButton.setText("recharger la grille (3)");
         nouvelleGrilleButton.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
-        SounEffect.playMusic("bouton.wav");
-        
-        // Chargez une nouvelle grille
-        grille = new GameBoard();
+           
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (nouvelleGrilleButtonPressCount < 3) {
+                SounEffect.playMusic("bouton.wav");
 
-        // Effacez le contenu actuel du PanneauGrille
-        PanneauGrille.removeAll();
+                // Chargez une nouvelle grille
+                grille = new GameBoard();
 
-        // Ajoutez les nouvelles cellules à la grille
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                Cell_graphique valeurCellule = new Cell_graphique(grille.board[i][j]);
-                valeurCellule.setPreferredSize(new Dimension(125, 150));
-                valeurCellule.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                PanneauGrille.add(valeurCellule);
+                // Effacez le contenu actuel du PanneauGrille
+                PanneauGrille.removeAll();
+
+                // Ajoutez les nouvelles cellules à la grille
+                for (int i = 0; i < 4; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        Cell_graphique valeurCellule = new Cell_graphique(grille.board[i][j]);
+                        valeurCellule.setPreferredSize(new Dimension(125, 150));
+                        valeurCellule.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                        PanneauGrille.add(valeurCellule);
+                    }
+                }
+
+                // Mettez à jour l'affichage
+                PanneauGrille.revalidate();
+                PanneauGrille.repaint();
+                 jButton1Presse=true;
+                
+                // Increment the press count
+                nouvelleGrilleButtonPressCount++;
+                int nbcoup = 3-nouvelleGrilleButtonPressCount;
+                nouvelleGrilleButton.setText("recharger la grille (" +nbcoup+")");
+            } else {
+                // You have pressed the button 3 times, handle this case
+                // For example, you can display a message or disable the button
+                System.out.println("You can't press the button more than 3 times.");
             }
         }
-
-        // Mettez à jour l'affichage
-        PanneauGrille.revalidate();
-        PanneauGrille.repaint();
-        jButton1Presse=true;
-    }
-});
+    });
            
         FenetreJeux fenetreJeux = new FenetreJeux(grille,pseudo,Musique);
         FenetreMenu fenetreMenu = new FenetreMenu(fenetreJeux,Musique);
         
         
-         jLabel1.setText("Bienvenue sur le jeu Three " +pseudo+ " 🙂︎");
+         jLabel1.setText("Bienvenue sur le jeu Three " +pseudo+ " !" );
  this.addKeyListener(new KeyAdapter() {
     @Override
     public void keyPressed(KeyEvent e) {
@@ -161,7 +176,6 @@ else {
         jLabel2.setText("Voici votre grille :");
 
         nouvelleGrilleButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
-        nouvelleGrilleButton.setText("recharger la grille");
         nouvelleGrilleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nouvelleGrilleButtonActionPerformed(evt);
@@ -177,8 +191,8 @@ else {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(menu)
-                        .addGap(134, 134, 134)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(140, 140, 140)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(jLabel2)

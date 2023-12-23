@@ -31,6 +31,13 @@ GameBoard Grille;
     private int nextRandomNumber;    // Stocke le prochain nombre aléatoire
     
 
+    /**
+     * Constructeur de la classe FenetreJeux.
+     *
+     * @param Grille       La grille du jeu.
+     * @param Pseudo       Le pseudonyme du joueur.
+     * @param thememusique Le numéro de la musique à jouer.
+     */
     public FenetreJeux(GameBoard Grille,String Pseudo,int thememusique) {
         initComponents();
          mettreEnPlaceRaccourcisClavier();
@@ -46,7 +53,7 @@ GameBoard Grille;
         } 
  
         // Générez un nombre aléatoire initial et affichez-le
-        currentRandomNumber = generateRandomNumber();
+        currentRandomNumber = generateRandomNumber(Grille);
         valeur.setText(" " + currentRandomNumber);
         
 
@@ -70,7 +77,7 @@ GameBoard Grille;
                 checkVitory(Pseudo,thememusique);
                 actualiserScore();
                 // Générez un nouveau nombre aléatoire pour le coup suivant
-                nextRandomNumber = generateRandomNumber();
+                nextRandomNumber = generateRandomNumber(Grille);
                 
                 // Mettez à jour l'interface graphique avec le prochain nombre
                 valeur.setText(" " + nextRandomNumber);
@@ -99,7 +106,7 @@ GameBoard Grille;
                 checkVitory(Pseudo,thememusique);
                 actualiserScore();
                 // Générez un nouveau nombre aléatoire pour le coup suivant
-                nextRandomNumber = generateRandomNumber();
+                nextRandomNumber = generateRandomNumber(Grille);
                 
                 // Mettez à jour l'interface graphique avec le prochain nombre
                 valeur.setText(" " + nextRandomNumber);
@@ -127,7 +134,7 @@ GameBoard Grille;
                 checkVitory(Pseudo,thememusique);
                 actualiserScore();
                 // Générez un nouveau nombre aléatoire pour le coup suivant
-                nextRandomNumber = generateRandomNumber();
+                nextRandomNumber = generateRandomNumber(Grille);
                 
                 // Mettez à jour l'interface graphique avec le prochain nombre
                 valeur.setText(" " + nextRandomNumber);
@@ -156,7 +163,7 @@ GameBoard Grille;
                 checkVitory(Pseudo,thememusique);
                 actualiserScore();
                 // Générez un nouveau nombre aléatoire pour le coup suivant
-                nextRandomNumber = generateRandomNumber();
+                nextRandomNumber = generateRandomNumber(Grille);
                 
                 // Mettez à jour l'interface graphique avec le prochain nombre
                 valeur.setText(" " + nextRandomNumber);
@@ -182,10 +189,30 @@ jButton1.addActionListener(new ActionListener() {
             }
           });
     }
-    private int generateRandomNumber() {
-     Random random = new Random();
-    int probability = random.nextInt(100) + 1;
+    /**
+     * Génère un nombre aléatoire en fonction de la grille actuelle.
+     *
+     * @param grille La grille du jeu.
+     * @return Un nombre aléatoire généré en fonction de la grille.
+     */
+    private int generateRandomNumber(GameBoard grille) {
+    Random random = new Random();
 
+    // Compter le nombre actuel de 1 et 2 dans la grille
+    int countOneTwo = grille.countOneTwo();
+
+    // Si le nombre actuel est déjà 7, alors seulement autoriser 12 et 24
+    if (countOneTwo >= 7) {
+        int probability = random.nextInt(100) + 1;
+        if (probability <= 97) {
+            return 12;
+        } else {
+            return 24;
+        }
+    }
+
+    // Si le nombre actuel est inférieur à 7, alors autoriser 1, 2, 3 et 6
+    int probability = random.nextInt(100) + 1;
     if (probability <= 75) {
         return random.nextInt(2) + 1;
     } else if (probability <= 90) {
@@ -196,6 +223,13 @@ jButton1.addActionListener(new ActionListener() {
         return 24;
     }
 }
+    
+     /**
+     * Vérifie si le jeu est terminé et affiche la fenêtre de fin si nécessaire.
+     *
+     * @param p       Le pseudonyme du joueur.
+     * @param musique Le numéro de la musique à jouer.
+     */
     public void checkVitory (String p,int musique)  {
       if (Grille.isGameOver()){
           timer.stop();
@@ -212,6 +246,10 @@ jButton1.addActionListener(new ActionListener() {
       
       
   }
+    
+     /**
+     * Incrémente le chronomètre d'une seconde.
+     */  
   private void incrementerChrono() {
         secondes++;
         int minutes = secondes / 60;
@@ -221,15 +259,29 @@ jButton1.addActionListener(new ActionListener() {
         chrono.setText(tempsFormat);
 
     }
-  public void setLabelScore(JLabel labelScore) {
+
+    /**
+     *
+     * @param labelScore
+     */
+    public void setLabelScore(JLabel labelScore) {
         this.score = labelScore;
     }
+  /**
+     * Met à jour le label du score en fonction de la grille actuelle.
+     */
  private void actualiserScore() {
         if (score != null && Grille != null) {
             int Score = calculerScore();
             score.setText(" "+Score);
         }
     }
+ 
+    /**
+     * Calcule le score en fonction de la grille actuelle.
+     *
+     * @return Le score calculé.
+     */
  private int calculerScore() {
     int score = 0;
     for (int i = 0; i < Grille.board.length; i++) {
@@ -258,13 +310,23 @@ jButton1.addActionListener(new ActionListener() {
             else if (Grille.board[i][j].getValue()==384){
                 score += 6561;
             }
+            else if (Grille.board[i][j].getValue()==768){
+                score += 19683;
+            }
             
         }  
         
     }
     return score;
 }
+ 
 
+
+    /**
+     * Rend certains composants de la fenêtre invisibles ou visibles.
+     *
+     * @param n Si vrai, rend les composants invisibles ; sinon, les rend visibles.
+     */
  public void rendreTexteInvisible(boolean n) {
      if (n==true){
          chrono.setVisible(false);
@@ -275,7 +337,10 @@ jButton1.addActionListener(new ActionListener() {
      jLabel1.setVisible(true);
      }
 }
- 
+    /**
+     * Met en place les raccourcis clavier pour les boutons 
+     * up,down, right et left avec les fléches dirréctionel.
+     */
  private void mettreEnPlaceRaccourcisClavier() {
         InputMap inputMap = this.getRootPane().getInputMap();
         ActionMap actionMap = this.getRootPane().getActionMap();
@@ -506,8 +571,8 @@ jButton1.addActionListener(new ActionListener() {
                         .addGap(139, 139, 139)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(score, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(128, 128, 128))))
+                        .addComponent(score, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(83, 83, 83))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jButton1)
